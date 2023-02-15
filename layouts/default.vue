@@ -6,3 +6,8 @@
     </b-container>
   </div>
 </template>
+<style>
+body {
+  font-family: "Nunito", Courier, monospace;
+}
+</style>

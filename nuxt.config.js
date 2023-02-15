@@ -54,13 +54,13 @@ export default {
             url: "/sanctum/csrf-cookie",
           },
           login: {
-            url: "/login",
+            url: "/api/v1/login",
           },
           logout: {
-            url: "/logout",
+            url: "/api/v1/logout",
           },
           user: {
-            url: "/user",
+            url: "/api/v1/user",
           },
         },
         user: {
@@ -78,7 +78,7 @@ export default {
     plugins: ["~/plugins/axios"],
   },
   axios: {
-    baseURL: "http://localhost:8000/api/v1",
+    baseURL: "http://localhost:8000/",
     credentials: true,
   },
 

@@ -22,6 +22,12 @@
 
 <script>
 export default {
+  middleware: "auth",
   name: "IndexPage",
+  head() {
+    return {
+      title: "Accueil — Wallet",
+    };
+  },
 };
 </script>
