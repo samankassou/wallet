@@ -42,6 +42,10 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
   ],
+  bootstrapVue: {
+    // Install the `IconsPlugin` plugin (in addition to `BootstrapVue` plugin)
+    icons: true,
+  },
   auth: {
     strategies: {
       cookie: {
