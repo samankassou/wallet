@@ -2,6 +2,7 @@
   <div>
     <b-card title="Enregister une dépense">
       <b-form @submit.prevent="save">
+        <Errors class="mb-5" :errors="errors"></Errors>
         <b-form-group id="input-group-1" label="Montant:" label-for="input-1">
           <b-form-input
             id="input-1"
@@ -37,6 +38,7 @@ export default {
       type: "expense",
       categories: [],
       selected: null,
+      errors: [],
     };
   },
   computed: {
@@ -50,12 +52,21 @@ export default {
     },
   },
   methods: {
-    async save() {
-      const response = await this.$axios.$post("/api/categories", {
-        amount: this.amount,
-        type: this.type,
-        category_id: this.selected,
-      });
+    save() {
+      this.$axios
+        .$post("api/categories", {
+          amount: this.amount,
+          type: this.type,
+          category_id: this.selected,
+        })
+        .then((res) => {
+          this.$router.push("/");
+        })
+        .catch((error) => {
+          if (error.response && error.response.status !== 422) throw error;
+
+          this.errors = Object.values(error.response.data.errors).flat();
+        });
     },
   },
   async fetch() {

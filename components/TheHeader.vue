@@ -14,6 +14,11 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
+          <p v-if="$auth.user">
+            <em>
+              {{ $auth.user.firstname + " " + $auth.user.lastname }}
+            </em>
+          </p>
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template v-if="$auth.user">
