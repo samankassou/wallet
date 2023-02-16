@@ -1,7 +1,13 @@
 <template>
   <div>
     <h1 class="mt-4">Liste des utilisateurs</h1>
-    <b-table striped hover :items="users" :fields="fields"></b-table>
+    <b-table
+      striped
+      hover
+      :items="users"
+      :fields="fields"
+      :tbody-tr-class="rowClass"
+    ></b-table>
   </div>
 </template>
 <script>
@@ -41,8 +47,8 @@ export default {
   }),
   methods: {
     rowClass(item) {
-      if (!item || !item.status) return;
-      if (item.status) return "table-success";
+      if (!item || !item.status) return "table-danger";
+      if (item.status) return;
     },
   },
   async fetch() {
