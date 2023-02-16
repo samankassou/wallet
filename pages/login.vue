@@ -76,16 +76,18 @@ export default {
       this.pending = true;
       this.errors = [];
       this.$auth
-        .loginWith("cookie", {
+        .loginWith("local", {
           data: {
             email: this.email,
             password: this.password,
             remember: this.remember,
           },
         })
-        .then(() => this.$router.push("/"))
+        .then((res) => {
+          this.$router.push("/");
+        })
         .catch((error) => {
-          //console.log(error);
+          console.log("error logging");
           if (error.response && error.response.status !== 422) throw error;
 
           this.errors = Object.values(error.response.data.errors).flat();

@@ -18,7 +18,7 @@
             <!-- Using 'button-content' slot -->
             <template v-if="$auth.user">
               <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#" @click="$auth.logout()"
+              <b-dropdown-item href="#" @click="logout"
                 >Sign Out</b-dropdown-item
               >
             </template>
@@ -31,3 +31,14 @@
     </b-navbar>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    async logout() {
+      await this.$auth.logout();
+
+      this.$router.push("/login");
+    },
+  },
+};
+</script>

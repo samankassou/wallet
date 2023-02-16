@@ -22,8 +22,8 @@
 </template>
 <script>
 export default {
-  middleware: "auth",
-  auth: "guest",
+  //middleware: "auth",
+  //auth: "guest",
   head() {
     return {
       title: "Opérations — Wallet",
@@ -50,7 +50,7 @@ export default {
     },
   },
   async fetch() {
-    const response = await this.$axios.$get("/api/v1/transactions");
+    const response = await this.$axios.$get("/api/transactions");
 
     this.transactions = response.data;
   },

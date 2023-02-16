@@ -48,31 +48,22 @@ export default {
   },
   auth: {
     strategies: {
-      cookie: {
-        endpoints: {
-          csrf: {
-            url: "/sanctum/csrf-cookie",
-          },
-          login: {
-            url: "/api/v1/login",
-          },
-          logout: {
-            url: "/api/v1/logout",
-          },
-          user: {
-            url: "/api/v1/user",
-          },
-        },
+      local: {
         user: {
           property: "data",
         },
+        endpoints: {
+          login: {
+            url: "/api/auth/login",
+          },
+          logout: {
+            url: "/api/auth/logout",
+          },
+          user: {
+            url: "/api/user",
+          },
+        },
       },
-    },
-
-    redirect: {
-      login: "/login",
-      logout: "/login",
-      home: "/",
     },
 
     plugins: ["~/plugins/axios"],

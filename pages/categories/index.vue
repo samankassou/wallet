@@ -7,7 +7,6 @@
 <script>
 export default {
   middleware: "auth",
-  auth: "guest",
   head() {
     return {
       title: "Catégories — Wallet",
@@ -29,7 +28,7 @@ export default {
     categories: [],
   }),
   async fetch() {
-    const response = await this.$axios.$get("/api/v1/categories");
+    const response = await this.$axios.$get("/api/categories");
 
     this.categories = response.data;
   },

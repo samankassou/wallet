@@ -26,7 +26,6 @@
 <script>
 export default {
   middleware: "auth",
-  auth: "guest",
   head() {
     return {
       title: "Utilisateurs — Wallet",
@@ -79,7 +78,7 @@ export default {
     },
   },
   async fetch() {
-    const response = await this.$axios.$get("/api/v1/users");
+    const response = await this.$axios.$get("/api/users");
 
     this.users = response.data;
   },
