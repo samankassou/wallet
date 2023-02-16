@@ -13,7 +13,7 @@
           >
             <b-form-input
               id="input-1"
-              v-model="form.email"
+              v-model="email"
               type="email"
               placeholder="Enter email"
               required
@@ -27,7 +27,7 @@
           >
             <b-form-input
               id="input-2"
-              v-model="form.password"
+              v-model="password"
               type="password"
               placeholder="Enter your password"
               required
@@ -35,7 +35,7 @@
           </b-form-group>
 
           <b-form-group id="input-group-3">
-            <b-form-checkbox v-model="form.remember" :value="true"
+            <b-form-checkbox v-model="remember" :value="true"
               >Se souvenir?</b-form-checkbox
             >
           </b-form-group>
@@ -62,18 +62,15 @@ export default {
       title: "Se connecter — Wallet",
     };
   },
-  data() {
-    return {
-      form: {
-        email: "",
-        password: "",
-        remember: false,
-      },
-      pending: false,
-      errors: [],
-      show: true,
-    };
-  },
+  data: () => ({
+    email: "",
+    password: "",
+    remember: false,
+    pending: false,
+    errors: [],
+    show: true,
+  }),
+
   methods: {
     onSubmit() {
       this.pending = true;
@@ -88,7 +85,8 @@ export default {
         })
         .then(() => this.$router.push("/"))
         .catch((error) => {
-          if (error.response.status !== 422) throw error;
+          //console.log(error);
+          if (error.response && error.response.status !== 422) throw error;
 
           this.errors = Object.values(error.response.data.errors).flat();
         })
@@ -99,9 +97,9 @@ export default {
     onReset(event) {
       event.preventDefault();
       // Reset our form values
-      this.form.email = "";
-      this.form.password = "";
-      this.form.remember = false;
+      this.email = "";
+      this.password = "";
+      this.remember = false;
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {

@@ -16,11 +16,15 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
-            <template #button-content>
-              <em>User</em>
+            <template v-if="$auth.user">
+              <b-dropdown-item href="#">Profile</b-dropdown-item>
+              <b-dropdown-item href="#" @click="$auth.logout()"
+                >Sign Out</b-dropdown-item
+              >
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <template v-else>
+              <b-dropdown-item to="/login">Se connecter</b-dropdown-item>
+            </template>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
