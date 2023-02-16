@@ -1,5 +1,24 @@
 <template>
-  <h1 class="mt-4">Historique de vos opérations</h1>
+  <div>
+    <h1 class="mt-4">Historique de vos opérations</h1>
+    <b-row class="mb-4">
+      <b-col>
+        <b-btn variant="outline-primary" to="/transactions/expense">
+          Enregistrer une dépense
+        </b-btn>
+        <b-btn to="/transactions/income"> Enregistrer un revenu </b-btn>
+      </b-col>
+    </b-row>
+    <b-table
+      striped
+      hover
+      :items="transactions"
+      :fields="fields"
+      :busy.sync="$fetchState.pending"
+      :tbody-tr-class="rowClass"
+    >
+    </b-table>
+  </div>
 </template>
 <script>
 export default {
@@ -10,52 +29,30 @@ export default {
       title: "Opérations — Wallet",
     };
   },
-  data() {
-    return {
-      form: {
-        email: "",
-        password: "",
-        remember: false,
+  data: () => ({
+    fields: [
+      {
+        key: "type",
+        label: "Type",
       },
-      pending: false,
-      errors: [],
-      show: true,
-    };
-  },
+      {
+        key: "amount",
+        label: "Montant",
+      },
+    ],
+    transactions: [],
+  }),
   methods: {
-    onSubmit() {
-      this.pending = true;
-      this.errors = [];
-      this.$auth
-        .loginWith("cookie", {
-          data: {
-            email: this.email,
-            password: this.password,
-            remember: this.remember,
-          },
-        })
-        .then(() => this.$router.push("/"))
-        .catch((error) => {
-          if (error.response.status !== 422) throw error;
+    rowClass(item) {
+      if (!item) return;
+      if (item.type === "expense") return "table-danger";
+      if (item.type === "income") return "table-success";
+    },
+  },
+  async fetch() {
+    const response = await this.$axios.$get("/api/v1/transactions");
 
-          this.errors = Object.values(error.response.data.errors).flat();
-        })
-        .finally(() => {
-          this.pending = false;
-        });
-    },
-    onReset(event) {
-      event.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.password = "";
-      this.form.remember = false;
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
-    },
+    this.transactions = response.data;
   },
 };
 </script>

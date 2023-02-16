@@ -6,8 +6,21 @@
       hover
       :items="users"
       :fields="fields"
+      :busy.sync="$fetchState.pending"
       :tbody-tr-class="rowClass"
-    ></b-table>
+      :actions="actions"
+    >
+    </b-table>
+    <b-col sm="7" md="6" class="my-1">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="10"
+        :per-page="5"
+        align="fill"
+        size="sm"
+        class="my-0"
+      ></b-pagination>
+    </b-col>
   </div>
 </template>
 <script>
@@ -21,6 +34,17 @@ export default {
   },
 
   data: () => ({
+    actions: [
+      {
+        btn_text: "Download",
+        event_name: "on-download",
+        class: "btn btn-primary my-custom-class",
+        event_payload: {
+          msg: "my custom msg",
+        },
+      },
+    ],
+    currentPage: 1,
     fields: [
       {
         key: "lastname",
@@ -50,11 +74,12 @@ export default {
       if (!item || !item.status) return "table-danger";
       if (item.status) return;
     },
+    editItem(item, index, target) {
+      console.log(item);
+    },
   },
   async fetch() {
-    const response = await this.$axios.$get(
-      "http://localhost:8000/api/v1/users"
-    );
+    const response = await this.$axios.$get("/api/v1/users");
 
     this.users = response.data;
   },

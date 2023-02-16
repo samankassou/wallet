@@ -29,9 +29,7 @@ export default {
     categories: [],
   }),
   async fetch() {
-    const response = await this.$axios.$get(
-      "http://localhost:8000/api/v1/categories"
-    );
+    const response = await this.$axios.$get("/api/v1/categories");
 
     this.categories = response.data;
   },
