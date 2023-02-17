@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card title="Enregister un revenu">
+    <b-card title="Déclarer un revenu">
       <b-form @submit.prevent="save">
         <Errors class="mb-5" :errors="errors"></Errors>
         <b-form-group id="input-group-1" label="Montant:" label-for="input-1">

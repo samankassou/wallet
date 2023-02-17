@@ -6,14 +6,14 @@
         <b-btn variant="outline-primary" to="/transactions/expense">
           Enregistrer une dépense
         </b-btn>
-        <b-btn to="/transactions/income"> Enregistrer un revenu </b-btn>
+        <b-btn to="/transactions/income"> Déclarer un revenu </b-btn>
       </b-col>
     </b-row>
     <b-table
       striped
       hover
       :items="transactions"
-      :fields="fields"
+      :fields="formattedFileds"
       :busy.sync="$fetchState.pending"
       :tbody-tr-class="rowClass"
     >
@@ -49,6 +49,17 @@ export default {
     ],
     transactions: [],
   }),
+  computed: {
+    formattedFileds() {
+      if (this.$auth.user.role == "admin") {
+        this.fields.unshift({
+          key: "user.firstname",
+          label: "Utilisateur",
+        });
+      }
+      return this.fields;
+    },
+  },
   methods: {
     rowClass(item) {
       if (!item) return;
