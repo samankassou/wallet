@@ -32,6 +32,7 @@
 </template>
 <script>
 export default {
+  middleware: "auth",
   data() {
     return {
       amount: 0,
@@ -54,13 +55,13 @@ export default {
   methods: {
     save() {
       this.$axios
-        .$post("api/categories", {
+        .post("api/transactions", {
           amount: this.amount,
           type: this.type,
           category_id: this.selected,
         })
         .then((res) => {
-          this.$router.push("/");
+          this.$router.push("/transactions");
         })
         .catch((error) => {
           if (error.response && error.response.status !== 422) throw error;

@@ -22,8 +22,7 @@
 </template>
 <script>
 export default {
-  //middleware: "auth",
-  //auth: "guest",
+  middleware: "auth",
   head() {
     return {
       title: "Opérations — Wallet",
@@ -38,6 +37,14 @@ export default {
       {
         key: "amount",
         label: "Montant",
+      },
+      {
+        key: "category.title",
+        label: "Catégories",
+      },
+      {
+        key: "created_at",
+        label: "Date",
       },
     ],
     transactions: [],
