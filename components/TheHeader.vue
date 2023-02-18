@@ -8,7 +8,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item to="/transactions">Opérations</b-nav-item>
-          <template v-if="$auth.user.role == 'admin'">
+          <template v-if="$auth.user && $auth.user.role == 'admin'">
             <b-nav-item to="/categories">Catégories</b-nav-item>
             <b-nav-item to="/users">Utilisateurs</b-nav-item>
           </template>

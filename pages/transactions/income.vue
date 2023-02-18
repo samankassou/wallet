@@ -23,6 +23,7 @@
         <b-row>
           <b-col>
             <b-btn type="submit">Enregistrer</b-btn>
+            <b-btn variant="danger" to="/transactions">Retour</b-btn>
           </b-col>
           <b-col></b-col>
         </b-row>
@@ -53,6 +54,13 @@ export default {
     },
   },
   methods: {
+    makeToast() {
+      this.$bvToast.toast(`Revenu enregistré avec succès`, {
+        title: "Wallet",
+        autoHideDelay: 5000,
+        variant: "success",
+      });
+    },
     save() {
       this.$axios
         .post("api/transactions", {
@@ -61,13 +69,20 @@ export default {
           category_id: this.selected,
         })
         .then((res) => {
-          this.$router.push("/transactions");
+          this.makeToast();
+          this.reset();
+          //this.$router.push("/transactions");
         })
         .catch((error) => {
           if (error.response && error.response.status !== 422) throw error;
 
-          this.errors = Object.values(error.response.data.errors).flat();
+          this.errors = Object.values(error?.response?.data?.errors).flat();
         });
+    },
+    reset() {
+      this.amount = 0;
+      this.selected = null;
+      this.errors = [];
     },
   },
   async fetch() {
