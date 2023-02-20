@@ -2,7 +2,6 @@
   <div>
     <h1 class="mt-4">Liste des utilisateurs</h1>
     <b-table
-      striped
       hover
       :items="users"
       :fields="fields"
@@ -10,6 +9,10 @@
       :tbody-tr-class="rowClass"
       :actions="actions"
     >
+      <!-- A virtual column -->
+      <template #cell(#)="data">
+        {{ data.index + 1 }}
+      </template>
       <template #cell(Statut)="row">
         <b-button
           :variant="row.item.status ? 'danger' : 'success'"
@@ -26,16 +29,12 @@
         </div>
       </template>
     </b-table>
-    <b-col sm="7" md="6" class="my-1">
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="10"
-        :per-page="5"
-        align="fill"
-        size="sm"
-        class="my-0"
-      ></b-pagination>
-    </b-col>
+    <b-pagination
+      :value="pagination.current_page"
+      :total-rows="pagination.total"
+      :per-page="pagination?.per_page"
+      @change="handlePageChange"
+    ></b-pagination>
   </div>
 </template>
 <script>
@@ -48,18 +47,11 @@ export default {
   },
 
   data: () => ({
-    actions: [
-      {
-        btn_text: "Download",
-        event_name: "on-download",
-        class: "btn btn-primary my-custom-class",
-        event_payload: {
-          msg: "my custom msg",
-        },
-      },
-    ],
-    currentPage: 1,
+    pagination: {
+      current_page: 1,
+    },
     fields: [
+      "#",
       {
         key: "lastname",
         sortable: true,
@@ -67,7 +59,7 @@ export default {
       },
       {
         key: "firstname",
-        sortable: false,
+        sortable: true,
         label: "Nom(s)",
       },
       {
@@ -79,7 +71,6 @@ export default {
       {
         key: "role",
         label: "Rôle",
-        sortable: true,
       },
     ],
     users: [],
@@ -117,9 +108,12 @@ export default {
     },
   },
   async fetch() {
-    const response = await this.$axios.$get("/api/users");
+    const response = await this.$axios.$get(
+      `/api/users?page=${this.pagination.current_page}`
+    );
 
     this.users = response.data;
+    this.pagination = response?.meta;
   },
 };
 </script>

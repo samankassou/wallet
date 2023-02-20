@@ -4,10 +4,16 @@
     <b-row class="mb-4">
       <b-col>
         <b-btn variant="outline-info" to="/transactions/expense">
+          <b-icon-cash></b-icon-cash>
           Enregistrer une dépense
         </b-btn>
         <b-btn variant="info" to="/transactions/income">
+          <b-icon-credit-card></b-icon-credit-card>
           Déclarer un revenu
+        </b-btn>
+        <b-btn variant="info">
+          <b-icon-printer></b-icon-printer>
+          Imprimer
         </b-btn>
       </b-col>
     </b-row>

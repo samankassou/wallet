@@ -34,18 +34,31 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-form-group id="input-group-3">
-            <b-form-checkbox v-model="remember" :value="true"
-              >Se souvenir?</b-form-checkbox
-            >
+          <b-form-group>
+            <b-row>
+              <b-col>
+                <b-form-checkbox v-model="remember" :value="true"
+                  >Se souvenir?</b-form-checkbox
+                >
+              </b-col>
+              <b-col><Nuxt-link to="/">Mot de passe oublié?</Nuxt-link></b-col>
+            </b-row>
           </b-form-group>
 
-          <b-button type="submit" variant="primary" :disabled="pending"
-            >Submit</b-button
-          >
-          <b-button type="reset" variant="danger" :disabled="pending"
-            >Reset</b-button
-          >
+          <b-form-group>
+            <b-button type="submit" variant="primary" :disabled="pending"
+              >Submit</b-button
+            >
+            <b-button type="reset" variant="danger" :disabled="pending"
+              >Reset</b-button
+            >
+          </b-form-group>
+          <b-row class="mt-5">
+            <p>
+              Pas de compte?
+              <Nuxt-link to="/register">Créer un compte</Nuxt-link>
+            </p>
+          </b-row>
         </b-form>
       </b-card>
     </b-col>

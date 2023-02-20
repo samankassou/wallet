@@ -64,12 +64,20 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-button type="submit" variant="primary" :disabled="pending"
-            >Submit</b-button
-          >
-          <b-button type="reset" variant="danger" :disabled="pending"
-            >Reset</b-button
-          >
+          <b-form-group>
+            <b-button type="submit" variant="primary" :disabled="pending"
+              >Submit</b-button
+            >
+            <b-button type="reset" variant="danger" :disabled="pending"
+              >Reset</b-button
+            >
+          </b-form-group>
+          <b-row class="mt-5">
+            <p>
+              Vous avez déjà un compte?
+              <Nuxt-link to="/login">Connectez-vous</Nuxt-link>
+            </p>
+          </b-row>
         </b-form>
       </b-card>
     </b-col>

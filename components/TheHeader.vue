@@ -7,10 +7,16 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/transactions">Opérations</b-nav-item>
+          <b-nav-item to="/transactions"
+            ><b-icon-bank></b-icon-bank> Opérations</b-nav-item
+          >
           <template v-if="$auth.user && $auth.user.role == 'admin'">
-            <b-nav-item to="/categories">Catégories</b-nav-item>
-            <b-nav-item to="/users">Utilisateurs</b-nav-item>
+            <b-nav-item to="/categories"
+              ><b-icon-list></b-icon-list>Catégories</b-nav-item
+            >
+            <b-nav-item to="/users"
+              ><b-icon-people></b-icon-people>Utilisateurs</b-nav-item
+            >
           </template>
         </b-navbar-nav>
 
